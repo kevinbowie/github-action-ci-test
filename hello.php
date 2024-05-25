@@ -1,5 +1,7 @@
 <?php
-function hello(){
+
+function hello()
+{
     echo'hello world';
 }
 
