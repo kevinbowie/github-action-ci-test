@@ -9,9 +9,10 @@ jobs:
     name: Test/Lint PHP
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Setup PHP
-        uses: shivammathur/setup-php@master
-        with:
-          php-version: 7.3 # Use your PHP version
-          extension-csv: mbstring, bcmath # Setup any required extensions for tests
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: PHP Lint 8.0
+        uses: dbfx/github-phplint/8.0@master
+      with:
+        folder-to-exclude: "! -path \"./vendor/*\" ! -path \"./folder/excluded/*\""
