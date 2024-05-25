@@ -1,8 +1,17 @@
 name: PHP Linting
-on: [push, pull_request]
+
+on:
+  push:
+    branches: main
+
 jobs:
-  phplint:
+  test-php:
+    name: Test/Lint PHP
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: michaelw90/PHP-Lint@master
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 7.3 # Use your PHP version
+          extension-csv: mbstring, bcmath # Setup any required extensions for tests

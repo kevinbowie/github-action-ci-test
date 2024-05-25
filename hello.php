@@ -1,6 +1,6 @@
 <?php
 function hello(){
-    echo 'hello world';
+    echo'hello world';
 }
 
 hello();
