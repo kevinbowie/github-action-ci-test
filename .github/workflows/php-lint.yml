@@ -12,7 +12,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: PHP Lint 8.0
-        uses: dbfx/github-phplint/8.0@master
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          folder-to-exclude: '! -path "./vendor/*" ! -path "./folder/excluded/*"'
+          php-version: 8.0
+          extensions: json, dom, curl, libxml, mbstring
+          coverage: none
+
+      - name: Install Pint
+        run: composer global require laravel/pint
+
+      - name: Run Pint
+        run: pint
+
+      # - name: PHP Lint 8.0
+      #   uses: dbfx/github-phplint/8.0@master
+      #   with:
+      #     folder-to-exclude: '! -path "./vendor/*" ! -path "./folder/excluded/*"'
