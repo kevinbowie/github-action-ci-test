@@ -22,3 +22,28 @@ jobs:
       - name: Lint Python files with Pycodestyle
         run: |
           pycodestyle .
+
+      - name: Send SMS Notification
+        if: failure()
+        run: |
+          python - <<EOF
+
+          import requests
+          import json
+
+          quicksend_url= "https://ueollosend.com/quicksend/"
+
+          data: {
+            'api_key': '${{ secrets.SMS_API_KEY }}',
+            'sender_id': 'GitHub',
+            'message': 'CI Pipeline has failed, check the details',
+            'recipient': '${{ secrets.SMS_RECIPIENT }}'
+          }
+
+          headers = {'Content-type': 'application/json'}
+
+          response = requests.post(quicksend_url, headers=headers, json=data)
+
+          with open('sms_response.json', 'w') as f:
+            json.dump(response.json(), f, indent=4)
+          EOF
